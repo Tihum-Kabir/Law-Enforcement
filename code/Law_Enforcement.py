@@ -34,4 +34,3 @@ embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-Mi
 vector_db = FAISS.from_documents(docs, embedding=embedding_model)
 
 print("✅ FAISS vector store created successfully!")
-
