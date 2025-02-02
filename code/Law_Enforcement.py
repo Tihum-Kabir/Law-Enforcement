@@ -2,6 +2,9 @@
 import fitz  # PyMuPDF
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 
 # Extract Text from the PDF
 pdf_path = "D:/CSE299/Law-Enforcement/data/Bangladesh_The_Penal_Code_1860.pdf"
@@ -26,3 +29,9 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
 docs = splitter.split_documents(documents)
 
 print(f"✅ Document split into {len(docs)} chunks.")
+
+embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
+vector_db = FAISS.from_documents(docs, embedding=embedding_model)
+
+print("✅ FAISS vector store created successfully!")
+
