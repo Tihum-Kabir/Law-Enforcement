@@ -4,7 +4,7 @@ from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
 # Extract Text from the PDF
-pdf_path = "Bangladesh_The_Penal_Code_1860.pdf"
+pdf_path = "D:/CSE299/Law-Enforcement/data/Bangladesh_The_Penal_Code_1860.pdf"
 pdf_doc = fitz.open(pdf_path)
 
 text = ""
