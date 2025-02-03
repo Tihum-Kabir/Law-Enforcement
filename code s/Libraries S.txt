@@ -1,0 +1,8 @@
+pip install pymupdf
+
+import fitz
+
+pip install langchain 
+
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+                           
