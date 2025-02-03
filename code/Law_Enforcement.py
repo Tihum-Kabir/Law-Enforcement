@@ -29,6 +29,7 @@ docs = splitter.split_documents(documents)
 
 print(f"✅ Document split into {len(docs)} chunks.")
 
+# Create embeddings and store in faiss
 embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
 vector_db = FAISS.from_documents(docs, embedding=embedding_model)
 
