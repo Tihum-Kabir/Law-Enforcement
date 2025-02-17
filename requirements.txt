@@ -1,5 +1,6 @@
-pypdf
+gradio
 langchain
-chromadb # Vector storage
-pytest
-boto3
+langchain_community
+transformers
+torch
+Bangladesh_The_Penal_Code_1860.pdf

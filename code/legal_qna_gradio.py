@@ -1,10 +1,12 @@
+import gradio as gr
 from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFacePipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
-import torch, os
+import torch
+import os
 
 # Define file paths
 pdf_path = "/home/karma/Law-Enforcement/data/Bangladesh_The_Penal_Code_1860.pdf"
@@ -67,7 +69,21 @@ def get_answer(query):
     except Exception as e:
         return f"⚠️ An error occurred: {str(e)}"
 
-# Example query
-user_query = "What does Bangladesh Penal Code say if I murder someone?"
-answer = get_answer(user_query)
-print(answer)
+# Create Gradio interface
+def gradio_interface(query):
+    return get_answer(query)
+
+# Define the Gradio interface layout
+iface = gr.Interface(
+    fn=gradio_interface,
+    inputs=gr.Textbox(label="Ask a Question About Bangladesh Penal Code", placeholder="Enter your question here..."),
+    outputs=gr.Textbox(label="Answer"),
+    title="Legal Q&A System",
+    description="Ask questions about the Bangladesh Penal Code, and the system will generate answers based on the text of the penal code.",
+    theme="default"
+)
+
+
+# Launch the interface
+if __name__ == "__main__":
+    iface.launch(share=True)
