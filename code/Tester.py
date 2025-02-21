@@ -2,7 +2,6 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFacePipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch, os
 
@@ -41,15 +40,13 @@ model = AutoModelForCausalLM.from_pretrained(
 )
 
 # Set up the text generation pipeline
-tinyllama_pipeline = pipeline(
+my_pipeline = pipeline(
     "text-generation",
     model=model,
     tokenizer=tokenizer,
     max_new_tokens=100,
     do_sample=False
 )
-
-llm = HuggingFacePipeline(pipeline=tinyllama_pipeline)
 
 # Optimized retriever with a lower k-value
 retriever = vector_db.as_retriever(search_kwargs={"k": 3})
@@ -61,7 +58,7 @@ def get_answer(query):
         context = " ".join([doc.page_content for doc in retrieved_docs])
         prompt = f"Context: {context}\n\nQuestion: {query}\nAnswer:"
         
-        response = tinyllama_pipeline(prompt)
+        response = my_pipeline(prompt)
         return response[0]['generated_text'].split("Answer:")[-1].strip()
     
     except Exception as e:

@@ -3,7 +3,6 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFacePipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
 import os
@@ -50,8 +49,6 @@ tinyllama_pipeline = pipeline(
     max_new_tokens=100,
     do_sample=False
 )
-
-llm = HuggingFacePipeline(pipeline=tinyllama_pipeline)
 
 # Optimized retriever with a lower k-value
 retriever = vector_db.as_retriever(search_kwargs={"k": 3})

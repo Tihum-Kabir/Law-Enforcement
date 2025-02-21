@@ -4,7 +4,6 @@ from langchain_community.document_loaders import PyMuPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFacePipeline
 from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 
 # Define file paths
@@ -53,9 +52,6 @@ my_pipeline = pipeline(
     max_new_tokens=100,  
     do_sample=False
 )
-
-# Wrap the pipeline in a HuggingFacePipeline object
-llm = HuggingFacePipeline(pipeline=my_pipeline)
 
 # Optimized retriever with a lower k-value
 retriever = vector_db.as_retriever(search_kwargs={"k": 3})
