@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Legal AI Query</title>
+</head>
+<body>
+    <h1>Ask a Question about Bangladesh's Penal Code</h1>
+    <form method="POST">
+        <label for="query">Enter your question:</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if question %}
+    <h2>Your Question:</h2>
+    <p>{{ question }}</p>
+
+    <h2>Answer:</h2>
+    <p>{{ answer }}</p>
+
+    <h2>Relevant Sections:</h2>
+    {% for doc in results %}
+        <p>{{ doc.page_content }}</p>
+        <hr>
+    {% endfor %}
+    {% endif %}
+</body>
+</html>
